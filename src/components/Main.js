@@ -8,18 +8,15 @@ import DropDownCountry from "./dropDownCountry";
 
 const Main = () => {
   const Data = useSelector((state) => state.data.data);
-  const [country, setCountry] = useState("");
-  const [gender, setGender] = useState("");
   const [filter, setFilter] = useState({ country: "", gender: "" });
   const [countries, setCountries] = useState([]);
   const [skip, setSkip] = useState(0);
   const ContainerRef = useRef(null);
-  console.log(Data);
   const dispatch = useDispatch();
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("https://dummyjson.com/users", {
+      const response = await axios.get(process.env.REACT_APP_API_URL, {
         headers: {
           "Content-Type": "application/json",
         },
