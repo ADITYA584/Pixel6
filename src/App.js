@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="flex flex-col justify-center items-center w-full ">
       <NavBar />
-      <div className=" px-5  w-full mt-[4.4rem] h-[90vh]">
+      <div className=" px-5  w-full mt-[4.4rem] border-2 border-red-500 sm:h-[90vh]">
         <Main />
       </div>
     </div>

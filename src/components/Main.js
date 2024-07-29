@@ -5,16 +5,19 @@ import { addData } from "../store/DataSlice";
 import EmployeeTable from "./EmployeeTable";
 import { FilterAlt } from "@mui/icons-material";
 import DropDownCountry from "./dropDownCountry";
+import Backdrop from "./Backdrop";
 
 const Main = () => {
   const Data = useSelector((state) => state.data.data);
   const [filter, setFilter] = useState({ country: "", gender: "" });
   const [countries, setCountries] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [skip, setSkip] = useState(0);
   const ContainerRef = useRef(null);
   const dispatch = useDispatch();
 
   const fetchData = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get(process.env.REACT_APP_API_URL, {
         headers: {
@@ -22,11 +25,11 @@ const Main = () => {
         },
         params: {
           skip: skip,
-          limit: 8,
+          limit: 9,
         },
       });
       dispatch(addData([...Data, ...response.data.users]));
-      //   console.log(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +46,7 @@ const Main = () => {
 
   useEffect(() => {
     fetchData();
-    setSkip(skip + 8);
+    setSkip(skip + 9);
   }, []);
 
   useEffect(() => {
@@ -55,7 +58,7 @@ const Main = () => {
       ) {
         fetchData();
         getCountries();
-        setSkip(skip + 8);
+        setSkip(skip + 9);
       }
     };
 
@@ -69,6 +72,7 @@ const Main = () => {
 
   return (
     <div>
+      {isLoading && <Backdrop />}
       <div className="flex  items-center justify-between mb-2 sm:py-3  sm:px-8 gap-4">
         <div className="sm:mb-0 ">
           <p className="text-lg sm:text-4xl font-bold">Employees</p>
