@@ -104,7 +104,7 @@ const Main = () => {
       <div
         ref={ContainerRef}
         style={{ scrollbarWidth: 0 }}
-        className="h-[79vh]  overflow-y-scroll"
+        className="h-[78vh]  overflow-y-scroll"
       >
         <EmployeeTable
           employeeData={Data}
